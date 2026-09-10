@@ -1,7 +1,6 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Link from "next/link";
-import "./globals.css";
+import { Header } from "./components/shared/Header";
+import { Footer } from "./components/shared/Footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,10 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Boleli",
-  description: "Fancy Store",
-};
+
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -25,18 +21,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <header>
-          <nav>
-            <ul>
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/store">LisStore</Link>
-              </li>
-            </ul>
-          </nav>
-        </header>
+        <Header />
+
         {children}</body>
     </html>
   );
