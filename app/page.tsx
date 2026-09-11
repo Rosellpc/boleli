@@ -1,6 +1,6 @@
-// ...existing code...
 import { Hero } from "./components/home/Hero/Hero";
 import { MainProducts } from "./components/home/MainProducts";
+import { Description } from "./components/home/Description";
 import { products } from "../data/products";
 
 export default function Home() {
@@ -9,6 +9,7 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-6xl px-4 pb-20 pt-6">
       <Hero />
+      <Description />
 
       <section className="mt-16">
         <div className="mb-8 flex items-end justify-between">

@@ -1,7 +1,8 @@
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "./components/shared/Header";
-import "./globals.css";
 import { Footer } from "./components/shared/Footer/Footer";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,18 +14,24 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const metadata: Metadata = {
+  title: "Boleli",
+  description: "Fancy Store",
+};
 
-
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-screen bg-[#f5f5f3] text-zinc-900">
         <Header />
-
-        {children}</body>
+        <div className="flex-1">{children}</div>
+        <Footer />
+      </body>
     </html>
   );
 }

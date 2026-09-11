@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/data/products";
 
@@ -10,10 +11,13 @@ export function MainProducts({ product }: MainProductsProps) {
     <article className="soft-card group overflow-hidden rounded-[28px] p-3 transition duration-300 hover:-translate-y-1">
       <Link href={`/product/${product.id}`} className="block">
         <div className="relative overflow-hidden rounded-[22px]">
-          <img
+          <Image
             src={product.image}
             alt={product.name}
+            width={800}
+            height={900}
             className="h-72 w-full rounded-[22px] object-cover transition duration-500 group-hover:scale-105"
+            priority={false}
           />
 
           <span className="absolute left-4 top-4 rounded-full border border-white/40 bg-white/40 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-700 backdrop-blur-sm">
