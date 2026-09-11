@@ -1,16 +1,38 @@
-import { Description } from "./components/home/Description";
+// ...existing code...
+import { Hero } from "./components/home/Hero/Hero";
 import { MainProducts } from "./components/home/MainProducts";
-import { Hero } from "./components/home/Hero";
+import { products } from "../data/products";
 
 export default function Home() {
-  console.log("Hola cara de bola")
+  const featuredProducts = products.slice(0, 4);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Hero />
-        <Description />
-        <MainProducts />
-      </main>
-    </div>
+    <main className="mx-auto max-w-6xl px-4 pb-20 pt-6">
+      <Hero />
+
+      <section className="mt-16">
+        <div className="mb-8 flex items-end justify-between">
+          <div>
+            <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-zinc-500">
+              Colección
+            </p>
+
+            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-zinc-900">
+              Lo más destacado
+            </h2>
+          </div>
+
+          <button className="hidden rounded-full border border-zinc-200 bg-white/35 px-4 py-2 text-sm font-medium text-zinc-800 md:inline-flex">
+            Ver más
+          </button>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {featuredProducts.map((product) => (
+            <MainProducts key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
