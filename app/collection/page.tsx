@@ -1,28 +1,53 @@
 import Link from "next/link";
-import { products } from "@/data/products";
 import Image from "next/image";
+import { products } from "@/data/products";
 
-export default function StorePage() {
+export default function CollectionPage() {
+  const categories = [
+    "audio",
+    "computing",
+    "wearables",
+    "peripherals",
+    "home-tech",
+    "accessories",
+  ];
+
   return (
     <main className="mx-auto max-w-6xl px-4 pb-20 pt-10">
       <header className="mb-10">
         <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-zinc-500">
-          Store
+          Collection
         </p>
 
         <div className="mt-3 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <h1 className="text-4xl font-semibold tracking-[-0.06em] text-zinc-900">
-            Colección completa
+            Curated essentials
           </h1>
 
           <Link
-            href="/"
+            href="/store"
             className="inline-flex w-fit rounded-full border border-zinc-200 bg-white/50 px-4 py-2 text-sm font-medium text-zinc-800 transition hover:bg-white"
           >
-            Volver al inicio
+            Ver toda la tienda
           </Link>
         </div>
       </header>
+
+      <section className="mb-10 grid gap-4 md:grid-cols-3">
+        {categories.map((category) => (
+          <div
+            key={category}
+            className="soft-card rounded-[24px] px-5 py-4 text-center"
+          >
+            <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-zinc-500">
+              Categoria
+            </p>
+            <h2 className="mt-3 text-xl font-semibold capitalize text-zinc-900">
+              {category}
+            </h2>
+          </div>
+        ))}
+      </section>
 
       <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {products.map((product) => (

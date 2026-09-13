@@ -1,21 +1,12 @@
+"use client";
+
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { products } from "@/data/products";
+import Image from "next/image";
+import { useCart } from "@/app/context/CartContext";
+import type { Product } from "@/data/products";
 
-type ProductDetailPageProps = {
-  params: Promise<{
-    id: string;
-  }>;
-};
-
-export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
-  const { id } = await params;
-
-  const product = products.find((item) => item.id === Number(id));
-
-  if (!product) {
-    notFound();
-  }
+export function ProductDetailClient({ product }: { product: Product }) {
+  const { addItem } = useCart();
 
   return (
     <main className="mx-auto max-w-5xl px-4 pb-20 pt-10">
@@ -30,10 +21,13 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
       <article className="grid gap-8 rounded-[32px] border border-zinc-200 bg-white/40 p-4 shadow-[0_18px_60px_rgba(17,17,17,0.06)] backdrop-blur-xl md:grid-cols-2 md:p-8">
         <div className="overflow-hidden rounded-[24px]">
-          <img
+          <Image
             src={product.image}
             alt={product.name}
+            width={1200}
+            height={1200}
             className="h-full w-full object-cover"
+            priority
           />
         </div>
 
@@ -67,7 +61,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           </p>
 
           <div className="mt-8 flex items-center gap-4">
-            <button className="rounded-full bg-zinc-950 px-6 py-3 text-sm font-medium text-white transition hover:bg-zinc-800">
+            <button
+              onClick={() => addItem(product)}
+              className="rounded-full bg-zinc-950 px-6 py-3 text-sm font-medium text-white transition hover:bg-zinc-800"
+            >
               Añadir al carrito
             </button>
 
