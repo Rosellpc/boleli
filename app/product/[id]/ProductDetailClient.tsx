@@ -3,17 +3,21 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/app/context/CartContext";
+import { useWishlist } from "@/app/context/WishlistContext";
 import type { Product } from "@/data/products";
 
 export function ProductDetailClient({ product }: { product: Product }) {
   const { addItem } = useCart();
+  const { addItem: addToWishlist, removeItem, isSaved } = useWishlist();
+
+  const saved = isSaved(product.id);
 
   return (
     <main className="mx-auto max-w-5xl px-4 pb-20 pt-10">
       <div className="mb-6">
         <Link
           href="/store"
-          className="inline-flex rounded-full border border-zinc-200 bg-white/50 px-4 py-2 text-sm font-medium text-zinc-800 transition hover:bg-white"
+          className="inline-flex rounded-full border border-zinc-200 bg-white/50 px-4 py-2 text-sm font-medium text-zinc-800 transition-all duration-200 hover:-translate-y-0.5 hover:bg-white active:translate-y-0"
         >
           ← Volver a la tienda
         </Link>
@@ -26,7 +30,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
             alt={product.name}
             width={1200}
             height={1200}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover transition duration-500 hover:scale-[1.02]"
             priority
           />
         </div>
@@ -62,14 +66,25 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           <div className="mt-8 flex items-center gap-4">
             <button
+              type="button"
               onClick={() => addItem(product)}
-              className="rounded-full bg-zinc-950 px-6 py-3 text-sm font-medium text-white transition hover:bg-zinc-800"
+              className="rounded-full bg-zinc-950 px-6 py-3 text-sm font-medium text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-zinc-800 active:translate-y-0"
             >
               Añadir al carrito
             </button>
 
-            <button className="rounded-full border border-zinc-200 bg-white/50 px-6 py-3 text-sm font-medium text-zinc-900 transition hover:bg-white">
-              Guardar
+            <button
+              type="button"
+              onClick={() =>
+                saved ? removeItem(product.id) : addToWishlist(product)
+              }
+              className={`rounded-full border px-6 py-3 text-sm font-medium transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 ${
+                saved
+                  ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                  : "border-zinc-200 bg-white/50 text-zinc-900 hover:bg-white"
+              }`}
+            >
+              {saved ? "Guardado ✓" : "Guardar"}
             </button>
           </div>
         </div>

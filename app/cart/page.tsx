@@ -19,12 +19,16 @@ export default function CartPage() {
 
       {items.length === 0 ? (
         <div className="rounded-[28px] border border-zinc-200 bg-white/40 p-10 text-center">
-          <h2 className="text-2xl font-semibold text-zinc-900">Tu carrito está vacío</h2>
-          <p className="mt-2 text-zinc-600">Descubre nuestra colección y añade productos.</p>
+          <h2 className="text-2xl font-semibold text-zinc-900">
+            Tu carrito está vacío
+          </h2>
+          <p className="mt-2 text-zinc-600">
+            Descubre nuestra colección y añade productos.
+          </p>
 
           <Link
             href="/store"
-            className="mt-6 inline-flex rounded-full bg-zinc-950 px-6 py-3 text-sm font-medium text-white"
+            className="mt-6 inline-flex rounded-full bg-zinc-950 px-6 py-3 text-sm font-medium !text-white"
           >
             Explorar productos
           </Link>
@@ -44,12 +48,14 @@ export default function CartPage() {
                 />
 
                 <div className="flex-1">
-                  <h2 className="text-lg font-medium text-zinc-900">{item.name}</h2>
+                  <h2 className="text-lg font-medium text-zinc-900">
+                    {item.name}
+                  </h2>
 
                   <div className="mt-2 flex items-center gap-2">
                     <button
                       onClick={() => updateQuantity(item.id, -1)}
-                      className="h-8 w-8 rounded-full border border-zinc-200 bg-white"
+                      className="h-8 w-8 rounded-full border border-zinc-200 bg-white text-zinc-900"
                     >
                       −
                     </button>
@@ -58,7 +64,7 @@ export default function CartPage() {
                     </span>
                     <button
                       onClick={() => updateQuantity(item.id, 1)}
-                      className="h-8 w-8 rounded-full border border-zinc-200 bg-white"
+                      className="h-8 w-8 rounded-full border border-zinc-200 bg-white text-zinc-900"
                     >
                       +
                     </button>
@@ -107,7 +113,7 @@ export default function CartPage() {
 
             <Link
               href="/checkout"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-zinc-950 px-6 py-3 text-sm font-medium text-white transition hover:bg-zinc-800"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-zinc-950 px-6 py-3 text-sm font-medium !text-white transition hover:bg-zinc-800"
             >
               Ir al checkout
             </Link>

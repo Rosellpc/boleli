@@ -11,6 +11,7 @@ type ProductDetailPageProps = {
 export default async function ProductDetailPage({
   params,
 }: ProductDetailPageProps) {
+  
   const { id } = await params;
   const product = products.find((item) => item.id === Number(id));
 

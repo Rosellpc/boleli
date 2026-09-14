@@ -1,36 +1,26 @@
-// import { NextResponse } from "next/server";
-// import Stripe from "stripe";
+import { NextResponse } from "next/server";
 
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-//   apiVersion: "2024-06-20",
-// });
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
 
-// export async function POST(req: Request) {
-//   try {
-//     const body = await req.json();
+    if (!body.items || !Array.isArray(body.items) || body.items.length === 0) {
+      return NextResponse.json(
+        { error: "Cart is empty" },
+        { status: 400 }
+      );
+    }
 
-//     const session = await stripe.checkout.sessions.create({
-//       mode: "payment",
-//       line_items: body.items.map((item: any) => ({
-//         price_data: {
-//           currency: "usd",
-//           product_data: {
-//             name: item.name,
-//           },
-//           unit_amount: item.price * 100,
-//         },
-//         quantity: item.quantity,
-//       })),
-//       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success`,
-//       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/cancel`,
-//     });
+    return NextResponse.json({
+      url: "/checkout/success",
+      mock: true,
+    });
+  } catch (error) {
+    console.error("Mock checkout error:", error);
 
-//     return NextResponse.json({ url: session.url });
-//   } catch (error) {
-//     console.error("Stripe checkout error:", error);
-//     return NextResponse.json(
-//       { error: "Error creating checkout session" },
-//       { status: 500 }
-//     );
-//   }
-// }
+    return NextResponse.json(
+      { error: "Error creating mock checkout" },
+      { status: 500 }
+    );
+  }
+}

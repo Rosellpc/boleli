@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export const Hero = () => {
   return (
@@ -18,13 +19,15 @@ export const Hero = () => {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <button className="rounded-full bg-zinc-950 px-6 py-3 text-sm font-medium text-white transition hover:bg-zinc-800">
-              Ver colección
-            </button>
+            <Link href="/store"
+              className="mt-8 inline-flex rounded-full bg-zinc-950 px-6 py-3 text-sm font-medium !text-white">
+              Tienda
+            </Link>
 
-            <button className="rounded-full border border-zinc-200 bg-white/40 px-6 py-3 text-sm font-medium text-zinc-900 transition hover:bg-white/60">
-              Ver lookbook
-            </button>
+            <Link href="/collection"
+              className="mt-8 inline-flex border rounded-full bg-white/10 px-6 py-3 text-sm font-medium text-white">
+               Colección
+            </Link>
           </div>
         </div>
 

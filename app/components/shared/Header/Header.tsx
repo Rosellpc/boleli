@@ -3,6 +3,28 @@
 import Link from "next/link";
 import { useCart } from "@/app/context/CartContext";
 
+function CartIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-4 w-4"
+      aria-hidden="true"
+    >
+      <path
+        d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.76L19 7H7"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="10" cy="17.5" r="1.2" fill="currentColor" />
+      <circle cx="17" cy="17.5" r="1.2" fill="currentColor" />
+    </svg>
+  );
+}
+
 export function Header() {
   const { itemCount } = useCart();
 
@@ -26,6 +48,14 @@ export function Header() {
           <Link href="/collection" className="transition hover:text-zinc-950">
             Colección
           </Link>
+          <Link
+            href="/wishlist"
+            className="rounded-full border border-zinc-200 bg-white/35 px-3 py-2 text-sm text-zinc-800 transition hover:bg-white/55">
+            Favoritos
+          </Link>
+          <Link href="/cart" className="transition hover:text-zinc-950">
+            Carrito
+          </Link>
         </div>
 
         <div className="flex items-center gap-2">
@@ -38,9 +68,18 @@ export function Header() {
 
           <Link
             href="/cart"
-            className="rounded-full bg-zinc-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-800"
+            className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-sm font-medium !text-white transition hover:bg-zinc-800"
           >
-            Carrito ({itemCount})
+            <div className="relative">
+              <CartIcon />
+              {itemCount > 0 && (
+                <span className=" absolute -right-2 -top-2 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-white px-1 text-[10px] font-semibold text-zinc-900 !color:white">
+                  {itemCount}
+                </span>
+              )}
+            </div>
+
+            <span>Carrito</span>
           </Link>
         </div>
       </nav>

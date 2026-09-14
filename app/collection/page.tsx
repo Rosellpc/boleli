@@ -1,16 +1,31 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useMemo, useState } from "react";
 import { products } from "@/data/products";
 
+const categories = [
+  "all",
+  "audio",
+  "computing",
+  "wearables",
+  "peripherals",
+  "home-tech",
+  "accessories",
+];
+
 export default function CollectionPage() {
-  const categories = [
-    "audio",
-    "computing",
-    "wearables",
-    "peripherals",
-    "home-tech",
-    "accessories",
-  ];
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const filteredProducts = useMemo(() => {
+    if (selectedCategory === "all") return products;
+
+    return products.filter(
+      (product) =>
+        product.category?.toLowerCase().replace(/\s+/g, "-") === selectedCategory
+    );
+  }, [selectedCategory]);
 
   return (
     <main className="mx-auto max-w-6xl px-4 pb-20 pt-10">
@@ -33,24 +48,35 @@ export default function CollectionPage() {
         </div>
       </header>
 
-      <section className="mb-10 grid gap-4 md:grid-cols-3">
-        {categories.map((category) => (
-          <div
-            key={category}
-            className="soft-card rounded-[24px] px-5 py-4 text-center"
-          >
-            <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-zinc-500">
-              Categoria
-            </p>
-            <h2 className="mt-3 text-xl font-semibold capitalize text-zinc-900">
-              {category}
-            </h2>
-          </div>
-        ))}
+      <section className="mb-10">
+        <div className="flex flex-wrap gap-3">
+          {categories.map((category) => {
+            const isActive = selectedCategory === category;
+            const label =
+              category === "all"
+                ? "Todas"
+                : category.replace("-", " ").replace(/\b\w/g, (char) => char.toUpperCase());
+
+            return (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setSelectedCategory(category)}
+                className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                  isActive
+                    ? "border-zinc-900 bg-zinc-900 text-white"
+                    : "border-zinc-200 bg-white/50 text-zinc-800 hover:bg-white"
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
       </section>
 
       <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <article
             key={product.id}
             className="soft-card group overflow-hidden rounded-[28px] p-3 transition duration-300 hover:-translate-y-1"
@@ -92,6 +118,12 @@ export default function CollectionPage() {
           </article>
         ))}
       </section>
+
+      {filteredProducts.length === 0 && (
+        <div className="mt-8 rounded-[24px] border border-zinc-200 bg-white/40 p-8 text-center">
+          <p className="text-zinc-600">No hay productos en esta categoría.</p>
+        </div>
+      )}
     </main>
   );
 }
